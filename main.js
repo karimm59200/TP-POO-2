@@ -1,41 +1,25 @@
 import { Contact } from "./classe/Contact.js"
 
-let contact1= new Contact("Mr","Dupont","Jean","12/12/1980","+(33)6 12 12 12 12","Dup-jeanjean@gmail.fr")
-let contact2= new Contact("Mme","Doe","Jeanne","01/25/1985","+(33)6 13 13 13 13","Doedoe-MarieJeanne@gmail.com")
+//let contact1= new Contact("Mr","Dupont","Jean","12/12/1980","+(33)6 12 12 12 12","Dup-jeanjean@gmail.fr")
+//let contact2= new Contact("Mme","Doe","Jeanne","01/25/1985","+(33)6 13 13 13 13","Doedoe-MarieJeanne@gmail.com")
 // console.log(contact1);
 // console.log(contact2);
 
-let contacts = []
+let contacts = [ 
+  new Contact("Mr","Dupont","Jean","12/12/1980","+(33)6 12 12 12 12","Dup-jeanjean@gmail.fr"),
+  new Contact("Mme","Doe","Jeanne","01/25/1985","+(33)6 13 13 13 13","Doedoe-MarieJeanne@gmail.com")
+]
+const btn = document.getElementById("btn");
 
- contacts.push(contact1);
- contacts.push(contact2);
+
+ //contacts.push(contact1);
+ //contacts.push(contact2);
 
 //  console.table(contacts);
 
-contacts.forEach(contact => { 
-console.log(`<tr>
-<th>${contact.titre}</th>
-<th>${contact.nom}</th>
-<th>${contact.prenom}</th>
-<th>${contact.dateDeNaissance}</th>
-<th>${contact.tel}</th>
-<th>${contact.email}</th>
-</tr>`)
-  
-   console.table(contact);
-});
 
-const table = document.getElementById("table");
-const man = document.getElementById('man');
-const woman = document.getElementById('woman');
-const prenom = document.getElementById('fname');
-const nom = document.getElementById('lname');
-const dateNaissance = document.getElementById("birthDate");
-const tel = document.getElementById("tel");
-const email = document.getElementById('email');
-const btn = document.getElementById("btn");
 // const refreshTableContact = document.getElementById('table');
-console.log(btn);
+
 
 // const dateFR = Contact.dateDeNaissance.split('/').reverse().join('');
 
@@ -45,57 +29,49 @@ console.log(btn);
 
 
 
+function refreshTableContact() {
+  const table = document.getElementById("table");
+  table.innerHTML =  '';
+  contacts.forEach(contact => {
+    table.innerHTML += `<tr class="table-light m-5">
+    <th>${contact.titre}</th>
+    <th>${contact.nom}</th>
+    <th>${contact.prenom}</th>
+    <th>${contact.dateDeNaissance}</th>
+    <th>${contact.tel}</th>
+    <th>${contact.email}</th>
+    </tr>`
+     });
+}
+refreshTableContact();
 
-
-  const refreshTableContact = contacts.forEach(contact => {
-  table.innerHTML += `<tr class="table-light m-5">
-  <th>${contact.titre}</th>
-  <th>${contact.nom}</th>
-  <th>${contact.prenom}</th>
-  <th>${contact.dateDeNaissance}</th>
-  <th>${contact.tel}</th>
-  <th>${contact.email}</th>
-  </tr>`;
-
-
-     console.log(contact);
-   })
- 
-
-
-btn.addEventListener('click', () => {
-   if (man) 
-   {document.getElementById('man').value}
-   else {
-    document.getElementById('woman').value
-   }
-   ;
-  prenom = document.getElementById('fname').value;
-  nom = document.getElementById('lname').value;
-  dateNaissance = document.getElementById('birthDate').value;
-  tel = document.getElementById('tel').value;
-  email = document.getElementById('email').value;
-
+btn.addEventListener('click',function(){
+  
+  let titre = document.getElementById('man');
+  let prenom = document.getElementById('fname');
+  let nom = document.getElementById('lname');
+  let dateNaissance = document.getElementById("birthDate");
+  let tel = document.getElementById("tel");
+  let email = document.getElementById('email');
+  
   contacts.push({
-    man : man,
-    prenom : prenom,
-    nom  : nom,
-    dateNaissance : dateNaissance,
-    tel : tel,
-    email : email,
+    titre : titre.checked ? "Mr" : "Mme",
+    prenom :  prenom.value,
+    nom  : nom.value,
+    dateNaissance : dateNaissance.value,
+    tel : tel.value,
+    email : email.value,
   })
-  console.table(contacts);
 
-    refreshContacts()
-    
-      man=true;
-      prenom="";
-      nom="";
-      dateNaissance="";
-      tel="";
-      email="";
-        
-    
+    refreshTableContact();
+
+  man.checked = true;
+  prenom.value = "";
+  nom.value = "";
+  dateNaissance.value = "";
+  tel.value = "";
+  email.value = ""; 
+  
 })
 
 
